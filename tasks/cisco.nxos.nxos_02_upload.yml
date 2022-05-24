@@ -1,0 +1,26 @@
+---
+# tasks file for network_upgrade
+
+- name: include tftp-server
+  ansible.builtin.include_vars:
+    file: "{{ region }}.yml"
+
+- name: print information about the next task
+  ansible.builtin.debug:
+    msg:
+      - "next task: upload compliant os"
+      - "timeout is 3600 seconds"
+  run_once: true
+
+- name: initiate file copy from device
+  cisco.nxos.nxos_file_copy:
+    file_pull: true
+    file_pull_protocol: scp
+    file_pull_timeout: 3600
+    local_file: "{{ nxos_file }}"
+    local_file_directory: bootflash
+    remote_file: "/var/lib/tftpboot/{{ nxos_file }}"
+    remote_scp_server: "{{ tftp_server }}"
+    remote_scp_server_user: "{{ ansible_user }}"
+    remote_scp_server_password: "{{ ansible_password }}"
+    vrf: management

@@ -1,0 +1,32 @@
+---
+# tasks file for network_upgrade
+
+- name: gather facts
+  cisco.nxos.nxos_facts:
+    gather_subset: min
+
+- name: set fact
+  ansible.builtin.set_fact:
+    compliant_os_version: "{{ nexus_compliant_os_version }}"
+    compliant_os_file: "{{ nexus_compliant_os_file }}"
+
+- name: print compliance
+  ansible.builtin.debug:
+    msg: Running NXOS is {{ ansible_facts.net_version }}.
+         Compliant NXOS is {{ nxos_version }}
+
+
+- name: check if compliant os file is present in bootflash
+  block:
+
+    - name: check if the compliant os file is present in bootflash
+      cisco.nxos.nxos_command:
+        commands:
+          - "dir bootflash: | include {{ nxos_file }}"
+      register: flash_output
+
+    - name: set fact
+      ansible.builtin.set_fact:
+        flash: "{{ flash_output['stdout'][0] }}"
+
+  when: ansible_facts.net_version != compliant_os_version

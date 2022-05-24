@@ -1,0 +1,4 @@
+---
+# defaults file for network_upgrade
+
+tftp_server: 10.13.13.13

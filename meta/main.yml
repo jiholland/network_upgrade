@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  role_name: network_upgrade
+  author: Jørn Ivar Holland
+  description: Install or schedule installation of compliant os.
+  license: BSD-3-Clause
+  min_ansible_version: '2.9'
+  platforms:
+    - name: EL
+      version:
+        - '8'
+    - name: IOS
+      version:
+        - all
+    - name: NXOS
+      version:
+        - all
+  galaxy_tags:
+    - cisco
+    - catalyst
+    - nexus
+    - install
+
+
+dependencies: []

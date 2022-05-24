@@ -1,0 +1,45 @@
+---
+# tasks file for network_upgrade
+
+- name: install nxos
+  block:
+
+    - name: print information about the next task
+      ansible.builtin.debug:
+        msg:
+          - "next task: install compliant os and reboot"
+          - "timeout is 1800 seconds"
+      run_once: true
+
+    - name: install compliant os and reload
+      cisco.nxos.nxos_install_os:
+        system_image_file: "{{ nxos_file }}"
+        issu: desired
+      register: installed
+
+    - name: wait for device to reboot
+      ansible.builtin.wait_for_connection:
+        delay: 30
+        timeout: 600
+
+  when: ansible_facts.net_version != compliant_os_version
+
+
+- name: assert installation
+  block:
+
+    - name: gather facts
+      cisco.nxos.nxos_facts:
+        gather_subset: min
+      until: not result.failed
+      retries: 5
+      delay: 10
+      register: result
+
+    - name: assert that the running os version is correct
+      ansible.builtin.assert:
+        that: ansible_facts.net_version == compliant_os_version
+        fail_msg: Running OS does not match compliant version. Upgrade unsuccessful :-(
+        success_msg: Running OS match compliant version :-)
+
+  when: installed is defined

@@ -1,0 +1,32 @@
+---
+# tasks file for network_upgrade
+
+- name: gather facts and check compliance
+  tags: upload
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_network_os }}_01_facts.yml"
+    apply:
+      tags: upload
+
+- name: upload compliant os to target
+  tags: upload
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_network_os }}_02_upload.yml"
+    apply:
+      tags: upload
+  when:
+    - not ansible_check_mode
+    - ansible_facts.net_version != compliant_os_version
+    - compliant_os_file not in flash
+
+- name: install compliant os
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_network_os }}_03_install.yml"
+  when: not ansible_check_mode
+
+
+- name: schedule the upgrade
+  tags: [never, schedule]
+  ansible.builtin.import_tasks: schedule_upgrade.yml
+  delegate_to: localhost
+  run_once: true

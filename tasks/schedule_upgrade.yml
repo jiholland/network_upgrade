@@ -1,0 +1,22 @@
+---
+# tasks file for network_upgrade
+
+- name: pause to get input
+  ansible.builtin.pause:
+    prompt: Enter the number of minutes in which to schedule upgrade for {{ target }}
+  register: input
+
+- name: schedule upgrade for {{ target }} in {{ input.user_input }} minutes
+  ansible.posix.at:
+    command: ansible-playbook playbook_network_upgrade.yml -e 'target={{ target }}'
+    count: "{{ input.user_input }}"
+    units: minutes
+    unique: true
+    state: present
+
+- name: print information
+  ansible.builtin.debug:
+    msg:
+      - Use command 'atq' to view all scheduled jobs.
+      - Use command 'atrm x' to cancel a job (where 'x' is the job number).
+      - View result at /var/spool/mail/{{ ansible_user }} once the job has completed.
