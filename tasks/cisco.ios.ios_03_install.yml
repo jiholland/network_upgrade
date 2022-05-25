@@ -61,6 +61,13 @@
         ansible_command_timeout: 3600
       register: installed
 
+  rescue:
+
+    - name: reset the connection
+      ansible.builtin.meta: reset_connection
+
+  always:
+
     - name: print information about the next task
       ansible.builtin.debug:
         msg:
