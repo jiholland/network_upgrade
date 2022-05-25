@@ -34,7 +34,7 @@ Example Playbook
         - network_upgrade
 
 
-Run playbook in check-mode to verifiy compliance without making any changes:
+Run playbook in check-mode to verify compliance without making any changes:
 
     ansible-playbook playbook_network_upgrade.yml -e "target=switch01" --check
 
