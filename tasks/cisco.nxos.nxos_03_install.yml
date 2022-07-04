@@ -14,7 +14,7 @@
     - name: install compliant os and reload
       cisco.nxos.nxos_install_os:
         system_image_file: "{{ compliant_os_file }}"
-        issu: desired
+        issu: false
       register: installed
 
     - name: wait for device to reboot
