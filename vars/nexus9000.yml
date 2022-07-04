@@ -1,0 +1,5 @@
+---
+# vars file for network_upgrade
+
+compliant_os_version: 9.3(8)
+compliant_os_file: nxos.9.3.8.bin

@@ -1,0 +1,5 @@
+---
+# vars file for network_upgrade
+
+compliant_os_version: 7.3(8)
+compliant_os_file: n5000-uk9.7.3.8.N1.1.bin

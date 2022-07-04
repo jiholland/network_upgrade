@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Install compliant os and reload device.
+Install compliant os and reload device, check compliance or schedule the upgrade (see example).
 
 Requirements
 ------------
@@ -13,8 +13,8 @@ Requirements
 Role Variables
 --------------
 
-- \*compliant\_os\_version
-- \*compliant\_os\_file
+- compliant\_os\_version
+- compliant\_os\_file
 - tftp\_server
 
 Dependencies

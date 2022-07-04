@@ -1,4 +1,0 @@
----
-# vars file for network_upgrade
-
-tftp_server: 10.11.11.11

@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: network_upgrade
   author: Jørn Ivar Holland
-  description: Install or schedule installation of compliant os.
+  description: Install, check or schedule the installation of compliant os.
   license: BSD-3-Clause
   min_ansible_version: '2.9'
   platforms:
@@ -19,7 +19,7 @@ galaxy_info:
     - cisco
     - catalyst
     - nexus
-    - install
+    - upgrade
 
 
 dependencies: []

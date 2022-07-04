@@ -1,10 +1,10 @@
 ---
 # tasks file for network_upgrade
 
-- name: gather facts and check compliance
+- name: check compliance
   tags: upload
   ansible.builtin.include_tasks:
-    file: "{{ ansible_network_os }}_01_facts.yml"
+    file: "{{ ansible_network_os }}_01_check.yml"
     apply:
       tags: upload
 

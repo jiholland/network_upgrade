@@ -1,0 +1,40 @@
+---
+# tasks file for network_upgrade
+
+- name: gather facts
+  cisco.ios.ios_facts:
+    gather_subset: min
+
+- name: include vars
+  ansible.builtin.include_vars:
+    file: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_network_os }}.{{ ansible_facts.net_model | regex_search('C[0-9]+[A-Za-z]+') | lower }}.yml"
+        - "{{ ansible_network_os }}.{{ ansible_facts.net_model | regex_search('C[0-9]') | lower }}k.yml"
+      paths:
+        - 'vars'
+
+- name: print compliance
+  ansible.builtin.debug:
+    msg: Running {{ ansible_facts.net_system }} is {{ ansible_facts.net_version }}.
+         Compliant {{ ansible_facts.net_system }} is {{ compliant_os_version }}
+
+
+- name: check if compliant os file is present in flash
+  block:
+
+    - name: check if the compliant os file is present in flash
+      cisco.ios.ios_command:
+        commands:
+          - "show flash: | include {{ compliant_os_file }}"
+      register: flash_output
+
+    - name: set fact
+      ansible.builtin.set_fact:
+        flash: "{{ flash_output['stdout'][0] }}"
+
+  when:
+    - not ansible_check_mode
+    - ansible_facts.net_version != compliant_os_version

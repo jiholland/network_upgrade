@@ -13,7 +13,7 @@
     - name: install compliant os and reboot
       cisco.ios.ios_command:
         commands:
-          - command: reload reason Upgrade IOS to {{ compliant_os_version }}
+          - command: reload reason Upgrade {{ ansible_facts.net_system }} to {{ compliant_os_version }}
             prompt: Proceed with reload
             answer: "\r"
       register: installed
@@ -99,7 +99,7 @@
     - name: assert that the running os version is correct
       ansible.builtin.assert:
         that: ansible_facts.net_version == compliant_os_version
-        fail_msg: Running OS does not match compliant version. Upgrade unsuccessful :-(
-        success_msg: Running OS match compliant version :-)
+        fail_msg: Running {{ ansible_facts.net_system }} does not match compliant version. Upgrade unsuccessful :-(
+        success_msg: Running {{ ansible_facts.net_system }} match compliant version :-)
 
   when: installed is defined
