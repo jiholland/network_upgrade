@@ -7,7 +7,7 @@
 
 - name: include vars
   ansible.builtin.include_vars:
-    file: "{{ ansible_network_os}}.{{ ansible_facts.net_model | regex_search('Nexus[0-9]+') | lower }}.yml"
+    file: "{{ ansible_network_os }}.{{ ansible_facts.net_model | regex_search('Nexus[0-9]+') | lower }}.yml"
 
 - name: print compliance
   ansible.builtin.debug:
