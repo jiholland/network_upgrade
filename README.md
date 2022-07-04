@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Install compliant os and reload device, check compliance or schedule the upgrade (see example).
+Install compliant os (and reload), check compliance or schedule the upgrade (see example).
 
 Requirements
 ------------
