@@ -1,0 +1,4 @@
+---
+# defaults file for network_backup
+
+tftp_server: 10.10.10.10
