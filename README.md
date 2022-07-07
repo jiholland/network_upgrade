@@ -13,9 +13,12 @@ Requirements
 Role Variables
 --------------
 
+defaults:
+- tftp\_server
+
+vars:
 - compliant\_os\_version
 - compliant\_os\_file
-- tftp\_server
 
 Dependencies
 ------------
