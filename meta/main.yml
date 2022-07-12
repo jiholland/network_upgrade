@@ -2,13 +2,10 @@
 galaxy_info:
   role_name: network_upgrade
   author: Jørn Ivar Holland
-  description: Install, check or schedule the installation of compliant os.
+  description: Upgrade OS (or check/upload/schedule) to compliant version on Cisco Catalyst and Nexus devices.
   license: BSD-3-Clause
   min_ansible_version: '2.9'
   platforms:
-    - name: EL
-      version:
-        - '8'
     - name: IOS
       version:
         - all

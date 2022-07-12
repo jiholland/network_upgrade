@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Install compliant os (and reload), check compliance or schedule the upgrade (see example).
+Upgrade OS, check compliance, upload OS or schedule the upgrade (see examples) for Cisco Catalyst and Nexus devices. 
 
 Requirements
 ------------
